@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#EE4D2D">
+    <title>SPX Mercadão - Dashboard</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Segoe UI', Arial, sans-serif; background:#0d1117; color:#c9d1d9; min-height:100vh; }
+
+        .login-overlay {
+            position:fixed; top:0; left:0; right:0; bottom:0;
+            background:#0d1117; display:flex; align-items:center; justify-content:center; z-index:9999;
+        }
+        .login-box {
+            background:#161b22; border:1px solid #30363d; border-radius:12px;
+            padding:40px; width:90%; max-width:380px; text-align:center;
+        }
+        .login-box h2 { color:#EE4D2D; margin-bottom:10px; font-size:22px; }
+        .login-box p { color:#8b949e; margin-bottom:25px; font-size:13px; }
+        .login-box input {
+            width:100%; padding:12px; margin-bottom:12px;
+            background:#0d1117; border:1px solid #30363d;
+            border-radius:8px; color:#c9d1d9; font-size:14px;
+        }
+        .login-box input:focus { outline:none; border-color:#EE4D2D; }
+        .login-box button {
+            width:100%; padding:12px; background:linear-gradient(135deg,#EE4D2D,#FF6B4A);
+            color:white; border:none; border-radius:8px; font-size:15px;
+            font-weight:600; cursor:pointer;
+        }
+        .login-error { color:#f85149; font-size:12px; margin-top:10px; display:none; }
+
+        .header {
+            background:linear-gradient(135deg, #EE4D2D, #FF6B4A);
+            padding:20px 25px; color:white;
+        }
+        .header h1 { font-size:clamp(18px, 4vw, 24px); }
+        .header p { opacity:0.9; font-size:clamp(11px, 2vw, 13px); margin-top:5px; }
+        .header-row { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
+        .logout-btn {
+            background:rgba(255,255,255,0.2); color:white; border:1px solid rgba(255,255,255,0.3);
+            padding:8px 16px; border-radius:6px; cursor:pointer; font-size:12px;
+        }
+
+        .container { padding:clamp(10px, 3vw, 20px); }
+        .hidden { display:none !important; }
+
+        .cards {
+            display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
+            gap:12px; margin-bottom:20px;
+        }
+        .card {
+            background:#161b22; border:1px solid #30363d;
+            border-radius:12px; padding:clamp(12px, 3vw, 20px);
+            text-align:center;
+        }
+        .card .label { font-size:clamp(9px, 1.5vw, 11px); color:#8b949e; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+        .card .value { font-size:clamp(20px, 4vw, 28px); font-weight:700; color:#EE4D2D; }
+        .card .delta { font-size:11px; color:#3fb950; margin-top:4px; }
+
+        .tabs {
+            display:flex; gap:4px; margin-bottom:20px;
+            background:#161b22; border-radius:10px; padding:4px;
+            border:1px solid #30363d; flex-wrap:wrap; overflow-x:auto;
+        }
+        .tab {
+            padding:8px 14px; border-radius:8px; cursor:pointer;
+            color:#8b949e; font-weight:500; font-size:clamp(11px, 2vw, 13px);
+            transition:all 0.3s; user-select:none; white-space:nowrap;
+        }
+        .tab:hover { background:#21262d; color:#c9d1d9; }
+        .tab.active { background:linear-gradient(135deg, #EE4D2D, #FF6B4A); color:white; }
+
+        @media (max-width:600px) {
+            .tabs { gap:2px; padding:3px; }
+            .tab { padding:6px 10px; font-size:10px; border-radius:6px; }
+            .cards { grid-template-columns:repeat(3, 1fr); gap:8px; }
+        }
+
+        .tab-content { display:none; }
+        .tab-content.active { display:block; }
+
+        .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:clamp(10px, 2vw, 20px); }
+        @media (max-width:768px) { .grid-2 { grid-template-columns:1fr; } }
+
+        .section { margin-bottom:25px; }
+        .section-title {
+            color:#EE4D2D; font-size:clamp(14px, 2.5vw, 18px);
+            font-weight:700; margin-bottom:12px;
+            border-left:4px solid #EE4D2D; padding-left:12px;
+        }
+
+        .table-container {
+            background:#161b22; border-radius:12px; overflow:hidden;
+            border:1px solid #30363d; max-height:400px; overflow-y:auto;
+        }
+        table { width:100%; border-collapse:collapse; font-size:clamp(10px, 1.5vw, 13px); }
+        th {
+            background:#21262d; padding:8px 10px; text-align:left;
+            color:#8b949e; font-size:10px; text-transform:uppercase;
+            position:sticky; top:0; z-index:1;
+        }
+        td { padding:6px 10px; border-bottom:1px solid #21262d; }
+        tr:hover { background:#1c2128; }
+
+        @media (max-width:600px) {
+            th, td { padding:5px 6px; font-size:9px; }
+            .table-container { max-height:300px; border-radius:8px; }
+        }
+
+        .bar-container { background:#21262d; border-radius:6px; height:24px; overflow:hidden; min-width:50px; }
+        .bar-fill {
+            height:100%; border-radius:6px; display:flex; align-items:center;
+            justify-content:flex-end; padding-right:6px; font-size:clamp(9px, 1.2vw, 11px);
+            font-weight:600; color:white; white-space:nowrap; transition:width 0.5s;
+        }
+        .orange-gradient { background:linear-gradient(90deg, #FF8C69, #EE4D2D); }
+        .green-gradient { background:linear-gradient(90deg, #3fb950, #2E7D32); }
+        .red-gradient { background:linear-gradient(90deg, #FF6B6B, #C0392B); }
+        .blue-gradient { background:linear-gradient(90deg, #58a6ff, #1565C0); }
+
+        .footer {
+            text-align:center; padding:clamp(10px, 2vw, 20px);
+            color:#484f58; font-size:clamp(9px, 1.2vw, 11px);
+            border-top:1px solid #21262d; margin-top:20px;
+        }
+
+        ::-webkit-scrollbar { width:6px; height:6px; }
+        ::-webkit-scrollbar-track { background:#0d1117; }
+        ::-webkit-scrollbar-thumb { background:#30363d; border-radius:3px; }
+    </style>
+</head>
+<body>
+
+<div id="loginOverlay" class="login-overlay">
+    <div class="login-box">
+        <h2>🔐 SPX Mercadão</h2>
+        <p>Faça login para acessar o dashboard</p>
+        <input type="text" id="username" placeholder="Usuário" autocomplete="off">
+        <input type="password" id="password" placeholder="Senha">
+        <button onclick="login()">Entrar</button>
+        <div id="loginError" class="login-error">Usuário ou senha inválidos</div>
+    </div>
+</div>
+
+<div id="mainContent" class="hidden">
+    <div class="header">
+        <div class="header-row">
+            <div>
+                <h1>📦 SPX Mercadão - Dashboard</h1>
+                <p id="headerInfo">Carregando...</p>
+            </div>
+            <button class="logout-btn" onclick="logout()">🚪 Sair</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="cards" id="cardsContainer"></div>
+
+        <div class="tabs" id="tabsContainer">
+            <div class="tab active" onclick="showTab('tab-auditores', this)">👤 Auditores</div>
+            <div class="tab" onclick="showTab('tab-erros', this)">🚛 Erros</div>
+            <div class="tab" onclick="showTab('tab-tempo', this)">⏱️ Tempo</div>
+            <div class="tab" onclick="showTab('tab-operadores', this)">👨‍💼 Op. Tempo</div>
+            <div class="tab" onclick="showTab('tab-dados', this)">📋 Dados</div>
+        </div>
+
+        <div id="tab-auditores" class="tab-content active"><div class="grid-2" id="auditoresContent"></div></div>
+        <div id="tab-erros" class="tab-content"><div class="grid-2" id="errosContent"></div></div>
+        <div id="tab-tempo" class="tab-content"><div id="tempoContent"></div></div>
+        <div id="tab-operadores" class="tab-content"><div id="operadoresTempoContent"></div></div>
+        <div id="tab-dados" class="tab-content"><div id="dadosContent"></div></div>
+
+        <div class="footer">SPX Conference Monitor v5.0 | Tema Shopee</div>
+    </div>
+</div>
+
+<script>
+const AUTH_USER = 'admin';
+const AUTH_PASS = 'spx2024';
+const DATA_URL = 'dados_conferencia/latest.json';
+
+let dadosCompletos = [];
+
+function login() {
+    const user = document.getElementById('username').value;
+    const pass = document.getElementById('password').value;
+
+    if (user === AUTH_USER && pass === AUTH_PASS) {
+        document.getElementById('loginOverlay').classList.add('hidden');
+        document.getElementById('mainContent').classList.remove('hidden');
+        document.getElementById('loginError').style.display = 'none';
+        sessionStorage.setItem('spx_auth', 'true');
+        carregarDados();
+    } else {
+        document.getElementById('loginError').style.display = 'block';
+    }
+}
+
+function logout() {
+    sessionStorage.removeItem('spx_auth');
+    location.reload();
+}
+
+if (sessionStorage.getItem('spx_auth') === 'true') {
+    document.getElementById('loginOverlay').classList.add('hidden');
+    document.getElementById('mainContent').classList.remove('hidden');
+    carregarDados();
+}
+
+function formatarTempo(minutos) {
+    if (minutos === null || minutos === undefined || isNaN(minutos) || minutos < 0) return '—';
+    const totalSegundos = Math.round(minutos * 60);
+    const horas = Math.floor(totalSegundos / 3600);
+    const mins = Math.floor((totalSegundos % 3600) / 60);
+    const segs = totalSegundos % 60;
+
+    if (horas > 0) return `${horas}h ${mins.toString().padStart(2,'0')}min`;
+    if (mins > 0) return `${mins}min ${segs.toString().padStart(2,'0')}s`;
+    return `${segs}s`;
+}
+
+function formatarTempoCurto(minutos) {
+    if (minutos === null || minutos === undefined || isNaN(minutos) || minutos < 0) return '—';
+    const totalSegundos = Math.round(minutos * 60);
+    const horas = Math.floor(totalSegundos / 3600);
+    const mins = Math.floor((totalSegundos % 3600) / 60);
+    if (horas > 0) return `${horas}:${mins.toString().padStart(2,'0')}h`;
+    return `${mins}min`;
+}
+
+async function carregarDados() {
+    try {
+        const resp = await fetch(DATA_URL);
+        const data = await resp.json();
+        dadosCompletos = data.dados_completos || [];
+        document.getElementById('headerInfo').textContent = `Task: ${data.task_id || 'N/A'} | ${new Date().toLocaleString('pt-BR')}`;
+        processarDados(dadosCompletos);
+    } catch (e) {
+        document.getElementById('headerInfo').textContent = 'Erro ao carregar dados';
+    }
+}
+
+function processarDados(lista) {
+    if (!lista || lista.length === 0) return;
+
+    lista.forEach(item => {
+        if (item.validation_start_time && item.validation_end_time) {
+            item.tempo_minutos = (item.validation_end_time - item.validation_start_time) / 60;
+            if (item.tempo_minutos < 0) item.tempo_minutos = 0;
+        }
+        if (item.binding_entity) item.rua = item.binding_entity.match(/[A-Za-z]+/)?.[0] || '?';
+        if (item.validation_operator) item.operador_limpo = item.validation_operator.replace(/\[ops\d+\]/, '').trim();
+    });
+
+    const total = lista.length;
+    const validadas = lista.filter(i => i.validation_status === 4).length;
+    const pendentes = total - validadas;
+    const missort = lista.reduce((s, i) => s + (i.missort_qty || 0), 0);
+    const missing = lista.reduce((s, i) => s + (i.missing_qty || 0), 0);
+    const scanned = lista.reduce((s, i) => s + (i.scanned_parcel_qty || 0), 0);
+    const initial = lista.reduce((s, i) => s + (i.initial_qty || 0), 0);
+    const duplicate = lista.reduce((s, i) => s + (i.duplicate_qty || 0), 0);
+    const taxa = initial > 0 ? (scanned / initial * 100).toFixed(1) : 0;
+
+    const comTempo = lista.filter(i => i.tempo_minutos > 0);
+    const tempos = comTempo.map(i => i.tempo_minutos).sort((a,b) => a - b);
+    const tempoMedio = tempos.length > 0 ? tempos.reduce((a,b) => a + b, 0) / tempos.length : 0;
+    const tempoMediana = tempos.length > 0 ? tempos[Math.floor(tempos.length / 2)] : 0;
+    const tempoMin = tempos[0] || 0;
+    const tempoMax = tempos[tempos.length - 1] || 0;
+    const tempoTotal = tempos.reduce((a,b) => a + b, 0);
+    const numAuditores = new Set(lista.map(i => i.validation_operator)).size;
+
+    let estimativa = '—', horasRest = 0;
+    if (tempoMedio > 0 && pendentes > 0) {
+        horasRest = (pendentes * tempoMedio / 60).toFixed(1);
+        estimativa = new Date(Date.now() + pendentes * tempoMedio * 60000).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+    }
+
+    document.getElementById('cardsContainer').innerHTML = `
+        <div class="card"><div class="label">📋 Total ATs</div><div class="value">${total}</div></div>
+        <div class="card"><div class="label">✅ Conferidos</div><div class="value">${validadas}</div><div class="delta">${(validadas/total*100).toFixed(1)}%</div></div>
+        <div class="card"><div class="label">⏳ Pendentes</div><div class="value" style="color:#d2991d;">${pendentes}</div></div>
+        <div class="card"><div class="label">🔍 Missing</div><div class="value">${missing.toLocaleString()}</div></div>
+        <div class="card"><div class="label">❌ Missorted</div><div class="value">${missort.toLocaleString()}</div></div>
+        <div class="card"><div class="label">🎯 Taxa Bipagem</div><div class="value">${taxa}%</div></div>
+        <div class="card"><div class="label">📦 Bipados</div><div class="value">${scanned.toLocaleString()}</div></div>
+        <div class="card"><div class="label">📋 Esperado</div><div class="value">${initial.toLocaleString()}</div></div>
+        <div class="card"><div class="label">📄 Duplicados</div><div class="value">${duplicate.toLocaleString()}</div></div>
+        <div class="card"><div class="label">⏱️ Tempo Médio</div><div class="value">${formatarTempoCurto(tempoMedio)}</div></div>
+        <div class="card"><div class="label">🕐 Término Est.</div><div class="value">${estimativa}</div><div class="delta">${horasRest}h rest</div></div>
+        <div class="card"><div class="label">👥 Auditores</div><div class="value">${numAuditores}</div></div>
+    `;
+
+    // Auditores
+    const topAud = {}, topPac = {};
+    lista.forEach(i => {
+        if (i.operador_limpo) {
+            topAud[i.operador_limpo] = (topAud[i.operador_limpo] || 0) + 1;
+            topPac[i.operador_limpo] = (topPac[i.operador_limpo] || 0) + (i.scanned_parcel_qty || 0);
+        }
+    });
+    const sAud = Object.entries(topAud).sort((a,b) => b[1] - a[1]).slice(0, 15);
+    const sPac = Object.entries(topPac).sort((a,b) => b[1] - a[1]).slice(0, 15);
+    const maxAud = sAud[0]?.[1] || 1, maxPac = sPac[0]?.[1] || 1;
+
+    document.getElementById('auditoresContent').innerHTML = `
+        <div class="section"><div class="section-title">🏆 Top Auditores - ATs</div><div class="table-container"><table><thead><tr><th>Auditor</th><th>ATs</th><th>Barra</th></tr></thead><tbody>${sAud.map(([n,q]) => `<tr><td>${n.substring(0,30)}</td><td style="text-align:center;">${q}</td><td><div class="bar-container"><div class="bar-fill orange-gradient" style="width:${(q/maxAud*100).toFixed(0)}%">${q}</div></div></td></tr>`).join('')}</tbody></table></div></div>
+        <div class="section"><div class="section-title">📦 Top Auditores - Pacotes</div><div class="table-container"><table><thead><tr><th>Auditor</th><th>Pacotes</th><th>Barra</th></tr></thead><tbody>${sPac.map(([n,q]) => `<tr><td>${n.substring(0,30)}</td><td style="text-align:center;">${q.toLocaleString()}</td><td><div class="bar-container"><div class="bar-fill green-gradient" style="width:${(q/maxPac*100).toFixed(0)}%">${q.toLocaleString()}</div></div></td></tr>`).join('')}</tbody></table></div></div>
+    `;
+
+    // Erros
+    const msRua = {}, mkRua = {};
+    lista.forEach(i => {
+        if (i.rua && i.missort_qty > 0) msRua[i.rua] = (msRua[i.rua] || 0) + i.missort_qty;
+        if (i.rua && i.missing_qty > 0) mkRua[i.rua] = (mkRua[i.rua] || 0) + i.missing_qty;
+    });
+    const sMs = Object.entries(msRua).sort((a,b) => a[1] - b[1]);
+    const sMk = Object.entries(mkRua).sort((a,b) => a[1] - b[1]);
+    const maxMs = sMs[sMs.length-1]?.[1] || 1, maxMk = sMk[sMk.length-1]?.[1] || 1;
+
+    document.getElementById('errosContent').innerHTML = `
+        <div class="section"><div class="section-title">❌ Missorted por Rua</div><div class="table-container"><table><thead><tr><th>Rua</th><th>Qtd</th><th>Barra</th></tr></thead><tbody>${sMs.length > 0 ? sMs.map(([r,q]) => `<tr><td>Rua ${r}</td><td style="text-align:center;">${q}</td><td><div class="bar-container"><div class="bar-fill red-gradient" style="width:${(q/maxMs*100).toFixed(0)}%">${q}</div></div></td></tr>`).join('') : '<tr><td colspan="3" style="text-align:center;color:#3fb950;">🎉 Nenhum missorted!</td></tr>'}</tbody></table></div></div>
+        <div class="section"><div class="section-title">🔍 Missing por Rua</div><div class="table-container"><table><thead><tr><th>Rua</th><th>Qtd</th><th>Barra</th></tr></thead><tbody>${sMk.length > 0 ? sMk.map(([r,q]) => `<tr><td>Rua ${r}</td><td style="text-align:center;">${q}</td><td><div class="bar-container"><div class="bar-fill orange-gradient" style="width:${(q/maxMk*100).toFixed(0)}%">${q}</div></div></td></tr>`).join('') : '<tr><td colspan="3" style="text-align:center;color:#3fb950;">🎉 Nenhum missing!</td></tr>'}</tbody></table></div></div>
+    `;
+
+    // Tempo
+    const rap = comTempo.slice(0, 20), len = comTempo.slice(-20);
+    document.getElementById('tempoContent').innerHTML = `
+        <div class="cards">
+            <div class="card"><div class="label">⏱️ Tempo Médio</div><div class="value">${formatarTempoCurto(tempoMedio)}</div></div>
+            <div class="card"><div class="label">📊 Mediana</div><div class="value">${formatarTempoCurto(tempoMediana)}</div></div>
+            <div class="card"><div class="label">⚡ Mais Rápido</div><div class="value" style="color:#3fb950;">${formatarTempoCurto(tempoMin)}</div></div>
+            <div class="card"><div class="label">🐌 Mais Lento</div><div class="value" style="color:#f85149;">${formatarTempoCurto(tempoMax)}</div></div>
+            <div class="card"><div class="label">🕐 Tempo Total</div><div class="value">${formatarTempoCurto(tempoTotal)}</div></div>
+            <div class="card"><div class="label">📋 Logs c/ Tempo</div><div class="value">${comTempo.length}</div></div>
+        </div>
+        <div class="section"><div class="section-title">📋 Logs</div><div class="table-container" style="max-height:500px;"><table><thead><tr><th>Target</th><th>Corredor</th><th>Operador</th><th>Tempo</th></tr></thead><tbody>
+            <tr><td colspan="4" style="text-align:center;color:#3fb950;">⚡ Mais Rápidos</td></tr>
+            ${rap.map(i => `<tr><td>${i.target_id||'N/A'}</td><td>${i.binding_entity||'N/A'}</td><td>${(i.operador_limpo||'N/A').substring(0,20)}</td><td style="color:#3fb950;font-weight:bold;">${formatarTempo(i.tempo_minutos)}</td></tr>`).join('')}
+            <tr><td colspan="4" style="text-align:center;color:#f85149;">🐌 Mais Lentos</td></tr>
+            ${len.map(i => `<tr><td>${i.target_id||'N/A'}</td><td>${i.binding_entity||'N/A'}</td><td>${(i.operador_limpo||'N/A').substring(0,20)}</td><td style="color:#f85149;font-weight:bold;">${formatarTempo(i.tempo_minutos)}</td></tr>`).join('')}
+        </tbody></table></div></div>
+    `;
+
+    // Tempo por operador
+    const tmpOp = {}, cntOp = {};
+    lista.forEach(i => {
+        if (i.operador_limpo && i.tempo_minutos > 0) {
+            tmpOp[i.operador_limpo] = (tmpOp[i.operador_limpo] || 0) + i.tempo_minutos;
+            cntOp[i.operador_limpo] = (cntOp[i.operador_limpo] || 0) + 1;
+        }
+    });
+    const medOp = Object.entries(tmpOp).map(([n,t]) => ({nome:n, total:t, count:cntOp[n], media:t/cntOp[n]})).sort((a,b) => a.media - b.media);
+    const maxMed = medOp[medOp.length-1]?.media || 1;
+
+    document.getElementById('operadoresTempoContent').innerHTML = `
+        <div class="section"><div class="section-title">👨‍💼 Tempo Médio por Operador</div>
+        <div class="table-container" style="max-height:600px;"><table><thead><tr><th>Operador</th><th>Rotas</th><th>Tempo Total</th><th>Tempo Médio</th><th>Barra</th></tr></thead><tbody>
+        ${medOp.map(op => `<tr><td>${op.nome.substring(0,25)}</td><td style="text-align:center;">${op.count}</td><td style="text-align:center;">${formatarTempo(op.total)}</td><td style="text-align:center;font-weight:bold;">${formatarTempo(op.media)}</td><td><div class="bar-container"><div class="bar-fill blue-gradient" style="width:${(op.media/maxMed*100).toFixed(0)}%">${formatarTempoCurto(op.media)}</div></div></td></tr>`).join('')}
+        </tbody></table></div></div>
+    `;
+
+    // Dados completos
+    const cols = ['target_id', 'binding_entity', 'initial_qty', 'scanned_parcel_qty', 'missort_qty', 'missing_qty', 'duplicate_qty', 'operador_limpo'];
+    document.getElementById('dadosContent').innerHTML = `
+        <div class="section"><div class="section-title">📋 Dados Completos (${total} registros)</div>
+        <div class="table-container" style="max-height:500px;"><table><thead><tr>${cols.map(c => `<th>${c.replace(/_/g, ' ')}</th>`).join('')}</tr></thead><tbody>
+        ${lista.map(i => `<tr>${cols.map(c => `<td>${i[c] !== undefined ? i[c] : '-'}</td>`).join('')}</tr>`).join('')}
+        </tbody></table></div></div>
+    `;
+}
+
+function showTab(tabId, el) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+}
+</script>
+</body>
+</html>
