@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-11T06:13:17.220812",
+  "timestamp": "2026-05-11T06:18:17.280456",
   "task_id": "VT202605100DLRZ",
   "total_rotas": 193,
   "dados_completos": [
@@ -2338,7 +2338,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2358,7 +2358,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2378,7 +2378,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2398,7 +2398,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2418,7 +2418,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2438,7 +2438,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2458,7 +2458,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2478,7 +2478,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2498,7 +2498,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2518,7 +2518,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2538,7 +2538,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2558,7 +2558,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2578,7 +2578,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2598,7 +2598,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2618,7 +2618,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2638,7 +2638,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2658,7 +2658,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2678,7 +2678,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2698,7 +2698,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2718,7 +2718,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2738,7 +2738,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2758,7 +2758,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2778,7 +2778,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2798,7 +2798,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2818,7 +2818,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2838,7 +2838,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2858,7 +2858,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2878,7 +2878,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2898,7 +2898,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2918,7 +2918,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2938,7 +2938,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2958,7 +2958,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2978,7 +2978,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -2998,7 +2998,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3018,7 +3018,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3038,7 +3038,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3058,7 +3058,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3078,7 +3078,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3098,7 +3098,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3118,7 +3118,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3138,7 +3138,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3158,7 +3158,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3178,7 +3178,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3198,7 +3198,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3218,7 +3218,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3238,7 +3238,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3258,7 +3258,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3278,7 +3278,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3298,7 +3298,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3318,7 +3318,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3338,7 +3338,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3358,7 +3358,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3378,7 +3378,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3398,7 +3398,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3418,7 +3418,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3438,7 +3438,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3458,7 +3458,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3478,7 +3478,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3498,7 +3498,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3518,7 +3518,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3538,7 +3538,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3558,7 +3558,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3578,7 +3578,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3598,7 +3598,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3618,7 +3618,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3638,7 +3638,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3658,7 +3658,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3678,7 +3678,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3698,7 +3698,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3718,7 +3718,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3738,7 +3738,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3758,7 +3758,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3778,7 +3778,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3798,7 +3798,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3818,7 +3818,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3838,7 +3838,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -3858,7 +3858,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
