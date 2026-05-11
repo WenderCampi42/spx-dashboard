@@ -173,7 +173,7 @@
         <div id="tab-operadores" class="tab-content"><div id="operadoresTempoContent"></div></div>
         <div id="tab-dados" class="tab-content"><div id="dadosContent"></div></div>
 
-        <div class="footer">SPX Conference Monitor v5.0 | Tema Shopee</div>
+        <div class="footer">SPX-audit v5.0 | Wender Fernandes</div>
     </div>
 </div>
 
@@ -265,7 +265,7 @@ function processarDados(lista) {
     const duplicate = lista.reduce((s, i) => s + (i.duplicate_qty || 0), 0);
     const taxa = initial > 0 ? (scanned / initial * 100).toFixed(1) : 0;
 
-    // ✅ CORRIGIDO: Ordenação correta dos tempos
+    // Ordenação correta dos tempos
     const comTempo = lista.filter(i => i.tempo_minutos > 0);
     const tempos = comTempo.map(i => i.tempo_minutos).sort((a,b) => a - b);
     const tempoMedio = tempos.length > 0 ? tempos.reduce((a,b) => a + b, 0) / tempos.length : 0;
@@ -298,7 +298,7 @@ function processarDados(lista) {
     `;
 
     // ============================================
-    // ✅ CORRIGIDO: AUDITORES
+    // AUDITORES
     // ============================================
     const topAud = {}, topPac = {};
     lista.forEach(i => {
@@ -322,7 +322,7 @@ function processarDados(lista) {
     `;
 
     // ============================================
-    // ✅ CORRIGIDO: ERROS POR RUA - Ordenado do MAIOR para o MENOR
+    // ERROS POR RUA - Ordenado do MAIOR para o MENOR
     // ============================================
     const msRua = {}, mkRua = {};
     lista.forEach(i => {
@@ -330,7 +330,7 @@ function processarDados(lista) {
         if (i.rua && i.missing_qty > 0) mkRua[i.rua] = (mkRua[i.rua] || 0) + i.missing_qty;
     });
     
-    // ✅ CORRIGIDO: Ordena do MAIOR para o MENOR (b[1] - a[1])
+    // Ordena do MAIOR para o MENOR (b[1] - a[1])
     const sMs = Object.entries(msRua).sort((a,b) => b[1] - a[1]);
     const sMk = Object.entries(mkRua).sort((a,b) => b[1] - a[1]);
     
@@ -344,14 +344,14 @@ function processarDados(lista) {
     `;
 
     // ============================================
-    // ✅ CORRIGIDO: TEMPO - Logs ordenados corretamente
+    // TEMPO - Logs ordenados
     // ============================================
     // comTempo já está ordenado por tempo_minutos (do mais rápido ao mais lento)
     const ordenadosPorTempo = comTempo.sort((a,b) => a.tempo_minutos - b.tempo_minutos);
     
-    // ✅ CORRIGIDO: Os 20 PRIMEIROS são os MAIS RÁPIDOS (menor tempo)
+    // Os 20 PRIMEIROS são os MAIS RÁPIDOS (menor tempo)
     const maisRapidos = ordenadosPorTempo.slice(0, 20);
-    // ✅ CORRIGIDO: Os 20 ÚLTIMOS são os MAIS LENTOS (maior tempo)
+    // Os 20 ÚLTIMOS são os MAIS LENTOS (maior tempo)
     const maisLentos = ordenadosPorTempo.slice(-20);
 
     document.getElementById('tempoContent').innerHTML = `
@@ -378,7 +378,7 @@ function processarDados(lista) {
     `;
 
     // ============================================
-    // ✅ CORRIGIDO: TEMPO POR OPERADOR - Ordenado do MAIS RÁPIDO ao MAIS LENTO
+    //  TEMPO POR OPERADOR - Ordenado do MAIS RÁPIDO ao MAIS LENTO
     // ============================================
     const tmpOp = {}, cntOp = {};
     lista.forEach(i => {
@@ -388,7 +388,7 @@ function processarDados(lista) {
         }
     });
     
-    // ✅ CORRIGIDO: Ordenado do MENOR tempo médio (mais rápido) para o MAIOR (mais lento)
+    //Ordenado do MENOR tempo médio (mais rápido) para o MAIOR (mais lento)
     const medOp = Object.entries(tmpOp).map(([n,t]) => ({
         nome: n, 
         total: t, 
