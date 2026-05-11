@@ -217,7 +217,7 @@ function formatarTempo(minutos) {
     const mins = Math.floor((totalSegundos % 3600) / 60);
     const segs = totalSegundos % 60;
 
-    if (horas > 0) return `${horas}h ${mins.toString().padStart(2,'0')}min`;
+    if (horas > 0) return `${horas}h ${mins.toString().padStart(2,'0')}min ${segs.toString().padStart(2,'0')}s`;
     if (mins > 0) return `${mins}min ${segs.toString().padStart(2,'0')}s`;
     return `${segs}s`;
 }
@@ -265,6 +265,7 @@ function processarDados(lista) {
     const duplicate = lista.reduce((s, i) => s + (i.duplicate_qty || 0), 0);
     const taxa = initial > 0 ? (scanned / initial * 100).toFixed(1) : 0;
 
+    // ✅ CORRIGIDO: Ordenação correta dos tempos
     const comTempo = lista.filter(i => i.tempo_minutos > 0);
     const tempos = comTempo.map(i => i.tempo_minutos).sort((a,b) => a - b);
     const tempoMedio = tempos.length > 0 ? tempos.reduce((a,b) => a + b, 0) / tempos.length : 0;
@@ -280,6 +281,7 @@ function processarDados(lista) {
         estimativa = new Date(Date.now() + pendentes * tempoMedio * 60000).toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
     }
 
+    // CARDS
     document.getElementById('cardsContainer').innerHTML = `
         <div class="card"><div class="label">📋 Total ATs</div><div class="value">${total}</div></div>
         <div class="card"><div class="label">✅ Conferidos</div><div class="value">${validadas}</div><div class="delta">${(validadas/total*100).toFixed(1)}%</div></div>
@@ -295,7 +297,9 @@ function processarDados(lista) {
         <div class="card"><div class="label">👥 Auditores</div><div class="value">${numAuditores}</div></div>
     `;
 
-    // Auditores
+    // ============================================
+    // ✅ CORRIGIDO: AUDITORES
+    // ============================================
     const topAud = {}, topPac = {};
     lista.forEach(i => {
         if (i.operador_limpo) {
@@ -303,32 +307,53 @@ function processarDados(lista) {
             topPac[i.operador_limpo] = (topPac[i.operador_limpo] || 0) + (i.scanned_parcel_qty || 0);
         }
     });
+    
+    // Ordena do MAIOR para o MENOR (b[1] - a[1])
     const sAud = Object.entries(topAud).sort((a,b) => b[1] - a[1]).slice(0, 15);
     const sPac = Object.entries(topPac).sort((a,b) => b[1] - a[1]).slice(0, 15);
-    const maxAud = sAud[0]?.[1] || 1, maxPac = sPac[0]?.[1] || 1;
+    
+    // O maior valor é o primeiro da lista ordenada
+    const maxAud = sAud[0]?.[1] || 1;
+    const maxPac = sPac[0]?.[1] || 1;
 
     document.getElementById('auditoresContent').innerHTML = `
-        <div class="section"><div class="section-title">🏆 Top Auditores - ATs</div><div class="table-container"><table><thead><tr><th>Auditor</th><th>ATs</th><th>Barra</th></tr></thead><tbody>${sAud.map(([n,q]) => `<tr><td>${n.substring(0,30)}</td><td style="text-align:center;">${q}</td><td><div class="bar-container"><div class="bar-fill orange-gradient" style="width:${(q/maxAud*100).toFixed(0)}%">${q}</div></div></td></tr>`).join('')}</tbody></table></div></div>
-        <div class="section"><div class="section-title">📦 Top Auditores - Pacotes</div><div class="table-container"><table><thead><tr><th>Auditor</th><th>Pacotes</th><th>Barra</th></tr></thead><tbody>${sPac.map(([n,q]) => `<tr><td>${n.substring(0,30)}</td><td style="text-align:center;">${q.toLocaleString()}</td><td><div class="bar-container"><div class="bar-fill green-gradient" style="width:${(q/maxPac*100).toFixed(0)}%">${q.toLocaleString()}</div></div></td></tr>`).join('')}</tbody></table></div></div>
+        <div class="section"><div class="section-title">🏆 Top 15 Auditores - ATs (Maior primeiro)</div><div class="table-container"><table><thead><tr><th>#</th><th>Auditor</th><th>ATs</th><th>Barra</th></tr></thead><tbody>${sAud.map(([n,q], i) => `<tr><td>${i+1}º</td><td>${n.substring(0,30)}</td><td style="text-align:center;font-weight:bold;">${q}</td><td><div class="bar-container"><div class="bar-fill orange-gradient" style="width:${(q/maxAud*100).toFixed(0)}%">${q}</div></div></td></tr>`).join('')}</tbody></table></div></div>
+        <div class="section"><div class="section-title">📦 Top 15 Auditores - Pacotes Bipados</div><div class="table-container"><table><thead><tr><th>#</th><th>Auditor</th><th>Pacotes</th><th>Barra</th></tr></thead><tbody>${sPac.map(([n,q], i) => `<tr><td>${i+1}º</td><td>${n.substring(0,30)}</td><td style="text-align:center;font-weight:bold;">${q.toLocaleString()}</td><td><div class="bar-container"><div class="bar-fill green-gradient" style="width:${(q/maxPac*100).toFixed(0)}%">${q.toLocaleString()}</div></div></td></tr>`).join('')}</tbody></table></div></div>
     `;
 
-    // Erros
+    // ============================================
+    // ✅ CORRIGIDO: ERROS POR RUA - Ordenado do MAIOR para o MENOR
+    // ============================================
     const msRua = {}, mkRua = {};
     lista.forEach(i => {
         if (i.rua && i.missort_qty > 0) msRua[i.rua] = (msRua[i.rua] || 0) + i.missort_qty;
         if (i.rua && i.missing_qty > 0) mkRua[i.rua] = (mkRua[i.rua] || 0) + i.missing_qty;
     });
-    const sMs = Object.entries(msRua).sort((a,b) => a[1] - b[1]);
-    const sMk = Object.entries(mkRua).sort((a,b) => a[1] - b[1]);
-    const maxMs = sMs[sMs.length-1]?.[1] || 1, maxMk = sMk[sMk.length-1]?.[1] || 1;
+    
+    // ✅ CORRIGIDO: Ordena do MAIOR para o MENOR (b[1] - a[1])
+    const sMs = Object.entries(msRua).sort((a,b) => b[1] - a[1]);
+    const sMk = Object.entries(mkRua).sort((a,b) => b[1] - a[1]);
+    
+    // O maior valor é o primeiro
+    const maxMs = sMs[0]?.[1] || 1;
+    const maxMk = sMk[0]?.[1] || 1;
 
     document.getElementById('errosContent').innerHTML = `
-        <div class="section"><div class="section-title">❌ Missorted por Rua</div><div class="table-container"><table><thead><tr><th>Rua</th><th>Qtd</th><th>Barra</th></tr></thead><tbody>${sMs.length > 0 ? sMs.map(([r,q]) => `<tr><td>Rua ${r}</td><td style="text-align:center;">${q}</td><td><div class="bar-container"><div class="bar-fill red-gradient" style="width:${(q/maxMs*100).toFixed(0)}%">${q}</div></div></td></tr>`).join('') : '<tr><td colspan="3" style="text-align:center;color:#3fb950;">🎉 Nenhum missorted!</td></tr>'}</tbody></table></div></div>
-        <div class="section"><div class="section-title">🔍 Missing por Rua</div><div class="table-container"><table><thead><tr><th>Rua</th><th>Qtd</th><th>Barra</th></tr></thead><tbody>${sMk.length > 0 ? sMk.map(([r,q]) => `<tr><td>Rua ${r}</td><td style="text-align:center;">${q}</td><td><div class="bar-container"><div class="bar-fill orange-gradient" style="width:${(q/maxMk*100).toFixed(0)}%">${q}</div></div></td></tr>`).join('') : '<tr><td colspan="3" style="text-align:center;color:#3fb950;">🎉 Nenhum missing!</td></tr>'}</tbody></table></div></div>
+        <div class="section"><div class="section-title">❌ Missorted por Rua (Maior primeiro)</div><div class="table-container"><table><thead><tr><th>#</th><th>Rua</th><th>Qtd</th><th>Barra</th></tr></thead><tbody>${sMs.length > 0 ? sMs.map(([r,q], i) => `<tr><td>${i+1}º</td><td>Rua ${r}</td><td style="text-align:center;font-weight:bold;">${q}</td><td><div class="bar-container"><div class="bar-fill red-gradient" style="width:${(q/maxMs*100).toFixed(0)}%">${q}</div></div></td></tr>`).join('') : '<tr><td colspan="4" style="text-align:center;color:#3fb950;">🎉 Nenhum missorted!</td></tr>'}</tbody></table></div></div>
+        <div class="section"><div class="section-title">🔍 Missing por Rua (Maior primeiro)</div><div class="table-container"><table><thead><tr><th>#</th><th>Rua</th><th>Qtd</th><th>Barra</th></tr></thead><tbody>${sMk.length > 0 ? sMk.map(([r,q], i) => `<tr><td>${i+1}º</td><td>Rua ${r}</td><td style="text-align:center;font-weight:bold;">${q}</td><td><div class="bar-container"><div class="bar-fill orange-gradient" style="width:${(q/maxMk*100).toFixed(0)}%">${q}</div></div></td></tr>`).join('') : '<tr><td colspan="4" style="text-align:center;color:#3fb950;">🎉 Nenhum missing!</td></tr>'}</tbody></table></div></div>
     `;
 
-    // Tempo
-    const rap = comTempo.slice(0, 20), len = comTempo.slice(-20);
+    // ============================================
+    // ✅ CORRIGIDO: TEMPO - Logs ordenados corretamente
+    // ============================================
+    // comTempo já está ordenado por tempo_minutos (do mais rápido ao mais lento)
+    const ordenadosPorTempo = comTempo.sort((a,b) => a.tempo_minutos - b.tempo_minutos);
+    
+    // ✅ CORRIGIDO: Os 20 PRIMEIROS são os MAIS RÁPIDOS (menor tempo)
+    const maisRapidos = ordenadosPorTempo.slice(0, 20);
+    // ✅ CORRIGIDO: Os 20 ÚLTIMOS são os MAIS LENTOS (maior tempo)
+    const maisLentos = ordenadosPorTempo.slice(-20);
+
     document.getElementById('tempoContent').innerHTML = `
         <div class="cards">
             <div class="card"><div class="label">⏱️ Tempo Médio</div><div class="value">${formatarTempoCurto(tempoMedio)}</div></div>
@@ -338,15 +363,23 @@ function processarDados(lista) {
             <div class="card"><div class="label">🕐 Tempo Total</div><div class="value">${formatarTempoCurto(tempoTotal)}</div></div>
             <div class="card"><div class="label">📋 Logs c/ Tempo</div><div class="value">${comTempo.length}</div></div>
         </div>
-        <div class="section"><div class="section-title">📋 Logs</div><div class="table-container" style="max-height:500px;"><table><thead><tr><th>Target</th><th>Corredor</th><th>Operador</th><th>Tempo</th></tr></thead><tbody>
-            <tr><td colspan="4" style="text-align:center;color:#3fb950;">⚡ Mais Rápidos</td></tr>
-            ${rap.map(i => `<tr><td>${i.target_id||'N/A'}</td><td>${i.binding_entity||'N/A'}</td><td>${(i.operador_limpo||'N/A').substring(0,20)}</td><td style="color:#3fb950;font-weight:bold;">${formatarTempo(i.tempo_minutos)}</td></tr>`).join('')}
-            <tr><td colspan="4" style="text-align:center;color:#f85149;">🐌 Mais Lentos</td></tr>
-            ${len.map(i => `<tr><td>${i.target_id||'N/A'}</td><td>${i.binding_entity||'N/A'}</td><td>${(i.operador_limpo||'N/A').substring(0,20)}</td><td style="color:#f85149;font-weight:bold;">${formatarTempo(i.tempo_minutos)}</td></tr>`).join('')}
-        </tbody></table></div></div>
+        <div class="section"><div class="section-title">📋 Logs de Conferência (Ordenados por Tempo)</div>
+        <div class="table-container" style="max-height:500px;">
+            <table>
+                <thead><tr><th>Target</th><th>Corredor</th><th>Operador</th><th>Tempo</th></tr></thead>
+                <tbody>
+                    <tr><td colspan="4" style="text-align:center;color:#3fb950;font-weight:bold;">⚡ TOP 20 MAIS RÁPIDOS (Menor Tempo)</td></tr>
+                    ${maisRapidos.map((i, idx) => `<tr><td>${i.target_id||'N/A'}</td><td>${i.binding_entity||'N/A'}</td><td>${(i.operador_limpo||'N/A').substring(0,20)}</td><td style="color:#3fb950;font-weight:bold;">${formatarTempo(i.tempo_minutos)}</td></tr>`).join('')}
+                    <tr><td colspan="4" style="text-align:center;color:#f85149;font-weight:bold;">🐌 TOP 20 MAIS LENTOS (Maior Tempo)</td></tr>
+                    ${maisLentos.map((i, idx) => `<tr><td>${i.target_id||'N/A'}</td><td>${i.binding_entity||'N/A'}</td><td>${(i.operador_limpo||'N/A').substring(0,20)}</td><td style="color:#f85149;font-weight:bold;">${formatarTempo(i.tempo_minutos)}</td></tr>`).join('')}
+                </tbody>
+            </table>
+        </div></div>
     `;
 
-    // Tempo por operador
+    // ============================================
+    // ✅ CORRIGIDO: TEMPO POR OPERADOR - Ordenado do MAIS RÁPIDO ao MAIS LENTO
+    // ============================================
     const tmpOp = {}, cntOp = {};
     lista.forEach(i => {
         if (i.operador_limpo && i.tempo_minutos > 0) {
@@ -354,14 +387,39 @@ function processarDados(lista) {
             cntOp[i.operador_limpo] = (cntOp[i.operador_limpo] || 0) + 1;
         }
     });
-    const medOp = Object.entries(tmpOp).map(([n,t]) => ({nome:n, total:t, count:cntOp[n], media:t/cntOp[n]})).sort((a,b) => a.media - b.media);
+    
+    // ✅ CORRIGIDO: Ordenado do MENOR tempo médio (mais rápido) para o MAIOR (mais lento)
+    const medOp = Object.entries(tmpOp).map(([n,t]) => ({
+        nome: n, 
+        total: t, 
+        count: cntOp[n], 
+        media: t / cntOp[n]
+    })).sort((a,b) => a.media - b.media);
+    
+    // O maior tempo (mais lento) é o último da lista
     const maxMed = medOp[medOp.length-1]?.media || 1;
 
     document.getElementById('operadoresTempoContent').innerHTML = `
-        <div class="section"><div class="section-title">👨‍💼 Tempo Médio por Operador</div>
-        <div class="table-container" style="max-height:600px;"><table><thead><tr><th>Operador</th><th>Rotas</th><th>Tempo Total</th><th>Tempo Médio</th><th>Barra</th></tr></thead><tbody>
-        ${medOp.map(op => `<tr><td>${op.nome.substring(0,25)}</td><td style="text-align:center;">${op.count}</td><td style="text-align:center;">${formatarTempo(op.total)}</td><td style="text-align:center;font-weight:bold;">${formatarTempo(op.media)}</td><td><div class="bar-container"><div class="bar-fill blue-gradient" style="width:${(op.media/maxMed*100).toFixed(0)}%">${formatarTempoCurto(op.media)}</div></div></td></tr>`).join('')}
-        </tbody></table></div></div>
+        <div class="section">
+            <div class="section-title">👨‍💼 Tempo Médio por Operador (Do mais rápido ao mais lento)</div>
+            <div class="table-container" style="max-height:600px;">
+                <table>
+                    <thead><tr><th>#</th><th>Operador</th><th>Rotas</th><th>Tempo Total</th><th>Tempo Médio</th><th>Barra</th></tr></thead>
+                    <tbody>
+                        ${medOp.map((op, i) => `
+                            <tr>
+                                <td>${i+1}º</td>
+                                <td>${op.nome.substring(0,25)}</td>
+                                <td style="text-align:center;">${op.count}</td>
+                                <td style="text-align:center;">${formatarTempo(op.total)}</td>
+                                <td style="text-align:center;font-weight:bold;color:${i < 3 ? '#3fb950' : i >= medOp.length-3 ? '#f85149' : '#c9d1d9'};">${formatarTempo(op.media)}</td>
+                                <td><div class="bar-container"><div class="bar-fill blue-gradient" style="width:${(op.media/maxMed*100).toFixed(0)}%">${formatarTempoCurto(op.media)}</div></div></td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     `;
 
     // Dados completos
