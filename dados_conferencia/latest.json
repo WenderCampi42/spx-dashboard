@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-11T12:13:55.049503",
+  "timestamp": "2026-05-11T12:18:54.881472",
   "task_id": "VT202605110DM5O",
   "total_rotas": 258,
   "dados_completos": [
@@ -7,19 +7,19 @@
       "target_id": "AT202605114NWXG",
       "binding_entity": "E-28",
       "initial_qty": 69,
-      "final_qty": 0,
+      "final_qty": 67,
       "scanned_parcel_qty": 73,
-      "missort_qty": 0,
-      "missing_qty": 0,
+      "missort_qty": 6,
+      "missing_qty": 2,
       "duplicate_qty": 0,
       "validation_start_time": 1778511987,
-      "validation_end_time": 0,
+      "validation_end_time": 1778512459,
       "revalidation_time": 0,
       "validation_operator": "[ops193234]ANA CRISTINA GOMES FERREIRA",
       "revalidation_operator": "",
       "revalidation_count": 0,
       "need_show_remark": false,
-      "validation_status": 2,
+      "validation_status": 4,
       "audit_target_type": 2,
       "belong": false
     },
@@ -4998,7 +4998,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -5018,7 +5018,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -5038,7 +5038,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -5058,7 +5058,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -5078,7 +5078,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -5098,7 +5098,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -5118,7 +5118,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -5138,7 +5138,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
@@ -5158,7 +5158,7 @@
       "validation_operator": "",
       "revalidation_operator": "",
       "revalidation_count": 0,
-      "need_show_remark": false,
+      "need_show_remark": true,
       "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
