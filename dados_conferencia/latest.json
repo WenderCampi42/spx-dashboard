@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-11T13:08:57.676784",
+  "timestamp": "2026-05-11T13:09:01.314597",
   "task_id": "VT202605110DMI1",
   "total_rotas": 240,
   "dados_completos": [
@@ -28,7 +28,7 @@
       "binding_entity": "G-12",
       "initial_qty": 96,
       "final_qty": 0,
-      "scanned_parcel_qty": 5,
+      "scanned_parcel_qty": 7,
       "missort_qty": 0,
       "missing_qty": 0,
       "duplicate_qty": 0,
@@ -128,7 +128,7 @@
       "binding_entity": "G-14",
       "initial_qty": 104,
       "final_qty": 0,
-      "scanned_parcel_qty": 94,
+      "scanned_parcel_qty": 96,
       "missort_qty": 0,
       "missing_qty": 0,
       "duplicate_qty": 0,
