@@ -1,8 +1,28 @@
 {
-  "timestamp": "2026-05-12T15:20:57.806056",
+  "timestamp": "2026-05-12T15:25:58.394086",
   "task_id": "VT202605120DNXN",
   "total_rotas": 235,
   "dados_completos": [
+    {
+      "target_id": "AT202605124PY6K",
+      "binding_entity": "K-11",
+      "initial_qty": 123,
+      "final_qty": 0,
+      "scanned_parcel_qty": 45,
+      "missort_qty": 0,
+      "missing_qty": 0,
+      "duplicate_qty": 0,
+      "validation_start_time": 1778610158,
+      "validation_end_time": 0,
+      "revalidation_time": 0,
+      "validation_operator": "[ops231408]JULIA PEREIRA DE GOES",
+      "revalidation_operator": "",
+      "revalidation_count": 0,
+      "need_show_remark": false,
+      "validation_status": 2,
+      "audit_target_type": 2,
+      "belong": false
+    },
     {
       "target_id": "AT202605124PYMU",
       "binding_entity": "J-16",
@@ -4680,26 +4700,6 @@
       "revalidation_count": 0,
       "need_show_remark": false,
       "validation_status": 4,
-      "audit_target_type": 2,
-      "belong": false
-    },
-    {
-      "target_id": "AT202605124PY6K",
-      "binding_entity": "K-11",
-      "initial_qty": 123,
-      "final_qty": 0,
-      "scanned_parcel_qty": 0,
-      "missort_qty": 0,
-      "missing_qty": 0,
-      "duplicate_qty": 0,
-      "validation_start_time": 0,
-      "validation_end_time": 0,
-      "revalidation_time": 0,
-      "validation_operator": "",
-      "revalidation_operator": "",
-      "revalidation_count": 0,
-      "need_show_remark": false,
-      "validation_status": 1,
       "audit_target_type": 2,
       "belong": false
     }
